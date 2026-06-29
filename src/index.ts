@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { randomUUID } from "node:crypto";
 import * as z from "zod/v4";
@@ -640,6 +640,21 @@ app.post("/login", (req: Request, res: Response) => {
     }
 
     res.redirect(authorizeUrl.toString());
+});
+
+// Global logger middleware
+app.use((req: Request, res: Response, next: NextFunction) => {
+    const localTimeStamp = new Date().toISOString();
+
+    console.log(
+        `[AUDIT][${localTimeStamp}] ${req.method} ${req.url}, ` +
+            `user-agent: ${req.headers["user-agent"]} ` +
+            `content-type: ${req.headers["content-type"]} ` +
+            `content-length: ${req.headers["content-length"]} ` +
+            `auth: ${req.headers["authorization"]} ` +
+            `mcp-session-id: ${req.headers["mcp-session-id"]} `,
+    );
+    next();
 });
 
 app.use(

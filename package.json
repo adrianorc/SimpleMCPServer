@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "cross-env ISSUER_URL=https://zdvbbcjgtx.a.pinggy.link ALLOWED_HOSTS=zdvbbcjgtx.a.pinggy.link tsx src/index.ts",
     "build": "tsc --noEmit"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
+    "cross-env": "^10.1.0",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
